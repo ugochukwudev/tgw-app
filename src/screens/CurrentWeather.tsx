@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import RowText from "../components/RowText";
@@ -21,15 +22,7 @@ const CurrentWeather = ({ weatherData }: any) => {
   const [selected, setSelected] = React.useState("");
   const [data, setData] = useState<any>();
   const [total, setTotal] = useState("");
-  const dataApi = [
-    { key: "1", value: "Mobiles", disabled: true },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers", disabled: true },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
-  ];
+  const [mapData, setMapData] = useState<any>();
 
   const {
     wrapper,
@@ -47,11 +40,14 @@ const CurrentWeather = ({ weatherData }: any) => {
     try {
       setLoading(true);
 
-      const datares = await fetch(
-        "https://v6.exchangerate-api.com/v6/2d1bba6a50da98046daccc2c/latest/USD"
-      );
+      const datares = await fetch("https://api.exchangerate.host/latest");
       const result: any = await datares.json();
       console.log(result);
+      let array = Object.getOwnPropertyNames(result?.rates).map((e, i) => {
+        return { key: i, value: e };
+      });
+      console.log(array, "oo");
+      setMapData(array);
       setData(result);
     } catch (err) {
       setError("could not fetch data");
@@ -60,8 +56,8 @@ const CurrentWeather = ({ weatherData }: any) => {
     }
   };
   useEffect(() => {
-    let fromExchangeRate = data?.conversion_rates[from];
-    let toExchangeRate = data?.conversion_rates[to];
+    let fromExchangeRate = data?.rates[from];
+    let toExchangeRate = data?.rates[to];
     const convertedAmount = (amount / fromExchangeRate) * toExchangeRate;
     if (amount > 0 && from && to) {
       return setTotal(
@@ -75,12 +71,27 @@ const CurrentWeather = ({ weatherData }: any) => {
   }, []);
   return (
     <ScrollView
+      scrollEnabled={true}
       style={[
         wrapper,
-        { backgroundColor: "#9873fe", width: "100%", paddingVertical: 10 },
+        {
+          backgroundColor: "#2580af",
+          width: "100%",
+          paddingTop: 30,
+        },
       ]}
     >
       <View style={container}>
+        <Text
+          style={{
+            paddingLeft: 4,
+            paddingBottom: 20,
+            fontSize: 30,
+            color: "#f5be49",
+          }}
+        >
+          Currency Converter
+        </Text>
         <Text style={styles.label}>Amount:</Text>
         <TextInput
           style={styles.input}
@@ -94,49 +105,46 @@ const CurrentWeather = ({ weatherData }: any) => {
 
         <SelectList
           boxStyles={{
-            width: "60%",
             backgroundColor: "white",
             borderColor: "white",
             marginVertical: 20,
+            width: from ? "62%" : "83%",
           }}
           dropdownStyles={{
             backgroundColor: "white",
             borderColor: "black",
           }}
-          search={false}
+          search={true}
           setSelected={(val: any) => {
-            console.log(val);
+            console.log(data?.rates[val], "kk");
             setFrom(val);
           }}
-          data={
-            data ? Object.getOwnPropertyNames(data?.conversion_rates) || [] : []
-          }
+          data={data ? mapData || [] : []}
           save="value"
           placeholder="Currency you want to convert"
         />
         <Text style={styles.label}>To</Text>
         <SelectList
           boxStyles={{
-            width: "60%",
             backgroundColor: "white",
             borderColor: "white",
             marginVertical: 20,
+            width: to ? "62%" : "77%",
           }}
           dropdownStyles={{
             backgroundColor: "white",
             borderColor: "black",
           }}
           setSelected={(val: any) => {
-            console.log(val);
+            console.log(val, "km");
             setTo(val);
           }}
-          search={false}
-          data={
-            data ? Object.getOwnPropertyNames(data?.conversion_rates) || [] : []
-          }
-          save={"key"}
+          search={true}
+          data={data ? mapData || [] : []}
+          save={"value"}
           placeholder="Currency to convert to"
         />
+        <Text style={styles.label}>Result :</Text>
         <View
           style={{
             flexDirection: "row",
@@ -145,25 +153,21 @@ const CurrentWeather = ({ weatherData }: any) => {
             alignItems: "center",
             paddingLeft: 25,
             marginTop: 20,
-            width: "90%",
-            backgroundColor: "black",
+            width: "100%",
+            backgroundColor: "white",
             paddingVertical: 10,
+            borderRadius: 10,
           }}
         >
-          <Text style={feels}>{total}</Text>
+          <Text style={feels}>
+            {total === "..." ? (
+              <ActivityIndicator size={24} color={"#f5be49"} />
+            ) : (
+              total
+            )}
+          </Text>
         </View>
       </View>
-      <RowText
-        messageOne={""}
-        messageTwo={"fastest way to covert your currency in seconds"}
-        containerStyles={bodyWrapper}
-        messageOneStyles={description}
-        messageTwoStyles={message}
-      />
-      <Text style={{ padding: 6, color: "black", marginBottom: 6 }}>
-        Note: use the currency short name. Example : to convert United State
-        Dollar, type USD{" "}
-      </Text>
     </ScrollView>
   );
 };
@@ -174,16 +178,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    alignItems: "center",
+    alignSelf: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
+    width: "90%",
   },
   temperature: {
     color: "black",
     fontSize: 48,
   },
   feels: {
-    fontSize: 30,
-    color: "white",
+    fontSize: 20,
+    color: "#000",
   },
   hiLow: {
     color: "black",
@@ -199,20 +205,23 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   description: {
-    fontSize: 43,
+    fontSize: 30,
+    color: "#000",
+    paddingVertical: 10,
   },
   message: {
     fontSize: 25,
+    color: "#725d34",
   },
   label: {
-    color: "black",
+    color: "white",
     fontWeight: "600",
     fontSize: 18,
     letterSpacing: 1,
   },
   input: {
     backgroundColor: "white",
-    width: "95%",
+    width: "100%",
     padding: 10,
     marginVertical: 10,
     borderRadius: 14,
