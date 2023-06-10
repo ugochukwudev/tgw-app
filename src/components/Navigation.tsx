@@ -7,7 +7,6 @@ import OnBoardUi from "../screens/onBoardUi";
 import Register from "../screens/Register";
 import VerifyUser from "../screens/verifyUser";
 import ForgotPassword from "../screens/forgotPassword";
-import App from "../screens/test";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 const Stack = createStackNavigator();
@@ -63,7 +62,6 @@ const Container = () => {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Verify" component={VerifyUser} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-        <Stack.Screen name="Test" component={App} />
       </>
     </Stack.Navigator>
   );

@@ -24,8 +24,3 @@ export const app = getApp();
 export const auth = getAuth(app);
 
 // Double-check that we can run the example
-if (!app?.options || Platform.OS === "web") {
-  throw new Error(
-    "This example only works on Android or iOS, and requires a valid Firebase config."
-  );
-}

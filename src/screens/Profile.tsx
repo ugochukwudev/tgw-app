@@ -182,9 +182,8 @@ const City = () => {
             setName(null);
             showToast();
             handleLogout();
-            setTimeout(() => {
-              navigation.navigate("Login");
-            }, 1000);
+
+            navigation.navigate("Login");
           }}
           style={{
             backgroundColor: "#2580af",
