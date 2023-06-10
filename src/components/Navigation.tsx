@@ -14,6 +14,16 @@ const Stack = createStackNavigator();
 
 const Navigation = () => {
   const [isnew, setIsNew] = useState(false);
+
+  return (
+    <NavigationContainer>
+      <Container />
+    </NavigationContainer>
+  );
+};
+
+const Container = () => {
+  const navigation: any = useNavigation();
   const retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("isnew");
@@ -25,7 +35,7 @@ const Navigation = () => {
         try {
           await AsyncStorage.setItem("isnew", "false");
           console.log("Data stored successfully!");
-          setIsNew(true);
+          navigation.navigate("OnBoard");
         } catch (error) {
           console.log("Error storing data:", error);
         }
@@ -34,38 +44,28 @@ const Navigation = () => {
       console.log("Error retrieving data:", error);
     }
   };
-  const reset = () => {
-    setIsNew(false);
-  };
+
   useEffect(() => {
     retrieveData();
   }, []);
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        {isnew && (
-          <Stack.Screen
-            name="OnBoard"
-            component={() => <OnBoardUi reset={reset} />}
-          />
-        )}
-        {!isnew && (
-          <>
-            <Stack.Screen name="Home" component={Tabs} />
-            <Stack.Screen name="Login" component={Login} />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="OnBoard" component={OnBoardUi} />
 
-            <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="Verify" component={VerifyUser} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-            <Stack.Screen name="Test" component={App} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+      <>
+        <Stack.Screen name="Home" component={Tabs} />
+        <Stack.Screen name="Login" component={Login} />
+
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Verify" component={VerifyUser} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="Test" component={App} />
+      </>
+    </Stack.Navigator>
   );
 };
 

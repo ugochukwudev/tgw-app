@@ -74,7 +74,7 @@ const OnBoardUi = ({ navigation, reset }: any) => {
       showPrevButton={true}
       showSkipButton={true}
       onDone={() => {
-        reset();
+        navigation.navigate("Home");
       }}
     />
   );
