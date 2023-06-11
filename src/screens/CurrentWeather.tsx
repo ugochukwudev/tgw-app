@@ -85,6 +85,7 @@ const CurrentWeather = ({ weatherData }: any) => {
       <View style={container}>
         <Text
           style={{
+            paddingTop: 40,
             paddingLeft: 4,
             paddingBottom: 20,
             fontSize: 30,

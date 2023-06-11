@@ -14,7 +14,7 @@ import Navigation from "./src/components/Navigation";
 import Toast, { ToastRef } from "react-native-toast-message";
 export default function App() {
   return (
-    <SafeAreaView style={{ flex: 1, paddingTop: StatusBar?.currentHeight }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Navigation />
       <Toast />
     </SafeAreaView>

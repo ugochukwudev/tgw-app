@@ -16,6 +16,7 @@ import { initializeApp, getApp } from "firebase/app";
 import { Platform } from "react-native";
 
 import { app, auth } from "../firebase/firebase";
+import { colors } from "../constants/colors";
 
 // Double-check that we can run the example
 
@@ -40,7 +41,7 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: "#2580af",
+        tabBarActiveTintColor: colors.yellow,
         tabBarInactiveTintColor: "gray",
         headerShown: false,
         tabBarStyle: {
@@ -57,33 +58,32 @@ const Tabs = () => {
       }}
     >
       <Tab.Screen
-        name={"Calculates"}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <AntDesign
-              name={"calculator"}
-              size={25}
-              color={focused ? "#2580af" : "black"}
-            />
-          ),
-        }}
-      >
-        {() => <CurrentWeather />}
-      </Tab.Screen>
-
-      <Tab.Screen
         name={"Profile"}
         options={{
           tabBarIcon: ({ focused }) => (
             <MaterialCommunityIcons
               name={"face-man-profile"}
               size={25}
-              color={focused ? "#2580af" : "black"}
+              color={focused ? colors.yellow : "black"}
             />
           ),
         }}
       >
         {() => <City />}
+      </Tab.Screen>
+      <Tab.Screen
+        name={"Calculates"}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <AntDesign
+              name={"calculator"}
+              size={25}
+              color={focused ? colors.yellow : "black"}
+            />
+          ),
+        }}
+      >
+        {() => <CurrentWeather />}
       </Tab.Screen>
     </Tab.Navigator>
   );
