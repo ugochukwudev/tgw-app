@@ -20,14 +20,13 @@ const Navigation = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="OnBoard" component={OnBoardUi} />
-
         <Stack.Screen name="Home" component={Tabs} />
         <Stack.Screen name="Login" component={Login} />
 
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Verify" component={VerifyUser} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="OnBoard" component={OnBoardUi} />
       </Stack.Navigator>
     </NavigationContainer>
   );

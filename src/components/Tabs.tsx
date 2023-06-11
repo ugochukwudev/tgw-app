@@ -11,31 +11,33 @@ import OnBoardUi from "../screens/onBoardUi";
 import Login from "../screens/Login";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-//import { initializeApp, getApp } from "firebase/app";
+import { initializeApp, getApp } from "firebase/app";
 
 import { Platform } from "react-native";
 
-//import { app, auth } from "../firebase/firebase";
+import { app, auth } from "../firebase/firebase";
 
 // Double-check that we can run the example
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
-  // const unsubscribe = auth.onAuthStateChanged((user) => {
-  //   if (user) {
-  //     // User is authenticated, fetch their data
-  //     console.log("hurray");
-  //   } else {
-  //     navigation.navigate("Login");
-  //     // User is not authenticated, handle accordingly
-  //     // e.g., redirect to login screen
-  //   }
-  // });
+  const unsubscribe = auth.onAuthStateChanged((user) => {
+    if (user) {
+      // User is authenticated, fetch their data
+      console.log("hurray");
+    } else {
+      navigation.navigate("Login");
+      // User is not authenticated, handle accordingly
+      // e.g., redirect to login screen
+    }
+  });
   const navigation: any = useNavigation();
   const retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("isnew");
+      console.log(value);
+
       if (value == "false") {
         console.log("Retrieved data:", value);
 
@@ -57,7 +59,7 @@ const Tabs = () => {
     retrieveData();
   }, []);
   useEffect(() => {
-    //unsubscribe();
+    unsubscribe();
   }, []);
   return (
     <Tab.Navigator

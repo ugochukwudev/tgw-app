@@ -25,7 +25,7 @@ import {
   updateProfile,
   User,
 } from "firebase/auth";
-//import { app, auth } from "../firebase/firebase";
+import { app, auth } from "../firebase/firebase";
 
 // Firebase references
 
@@ -53,24 +53,24 @@ const City = () => {
       text2: "",
     });
   };
-  // const unsubscribe = auth.onAuthStateChanged((user) => {
-  //   if (user) {
-  //     // User is authenticated, fetch their data
-  //     setName(user.displayName);
-  //   } else {
-  //     navigation.navigate("Login");
-  //     // User is not authenticated, handle accordingly
-  //     // e.g., redirect to login screen
-  //   }
-  // });
+  const unsubscribe = auth.onAuthStateChanged((user) => {
+    if (user) {
+      // User is authenticated, fetch their data
+      setName(user.displayName);
+    } else {
+      navigation.navigate("Login");
+      // User is not authenticated, handle accordingly
+      // e.g., redirect to login screen
+    }
+  });
   useEffect(() => {
     // Clean up the auth state listener
-    //unsubscribe();
+    unsubscribe();
   }, []);
 
   const handleLogout = async () => {
     try {
-      //await auth.signOut();
+      await auth.signOut();
       // User is logged out successfully
     } catch (error) {
       // Handle error logging out
@@ -177,7 +177,7 @@ const City = () => {
           onPress={() => {
             setName(null);
             showToast();
-            //handleLogout();
+            handleLogout();
 
             navigation.navigate("Login");
           }}

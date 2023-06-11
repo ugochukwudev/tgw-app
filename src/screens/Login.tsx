@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-//import { app, auth } from "../firebase/firebase";
+import { app, auth } from "../firebase/firebase";
 import {
   fetchSignInMethodsForEmail,
   getAuth,
@@ -21,11 +21,11 @@ import {
   User,
 } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-//import { get, getDatabase, ref, set } from "firebase/database";
+import { get, getDatabase, ref, set } from "firebase/database";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import Toast from "react-native-toast-message";
 
-//const database = getDatabase();
+const database = getDatabase();
 
 // Double-check that we can run the example
 
@@ -34,7 +34,7 @@ const Login = () => {
   const [phoneNumber, setPhoneNumber] = React.useState<any>();
   const [verificationId, setVerificationId] = React.useState<any>();
   const [verificationCode, setVerificationCode] = React.useState<any>();
-  //const firebaseConfig = app ? app.options : undefined;
+  const firebaseConfig = app ? app.options : undefined;
   const [message, showMessage] = React.useState<any>();
   const attemptInvisibleVerification = false;
   const navigation: any = useNavigation();
@@ -61,7 +61,7 @@ const Login = () => {
       >
         <FirebaseRecaptchaVerifierModal
           ref={recaptchaVerifier}
-          //firebaseConfig={firebaseConfig}
+          firebaseConfig={firebaseConfig}
           // attemptInvisibleVerification
         />
         <View
@@ -101,45 +101,45 @@ const Login = () => {
             <TouchableOpacity
               style={{ backgroundColor: "black", padding: 8, borderRadius: 10 }}
               disabled={!phoneNumber}
-              // onPress={async () => {
-              //   setLoading(true);
-              //   const userRef = ref(database, `users/${phoneNumber}`);
-              //   get(userRef)
-              //     .then(async (snapshot) => {
-              //       if (snapshot.exists()) {
-              //         try {
-              //           const phoneProvider = new PhoneAuthProvider(auth);
-              //           const verificationId =
-              //             await phoneProvider.verifyPhoneNumber(
-              //               phoneNumber,
-              //               recaptchaVerifier.current
-              //             );
-              //           setVerificationId(verificationId);
+              onPress={async () => {
+                setLoading(true);
+                const userRef = ref(database, `users/${phoneNumber}`);
+                get(userRef)
+                  .then(async (snapshot) => {
+                    if (snapshot.exists()) {
+                      try {
+                        const phoneProvider = new PhoneAuthProvider(auth);
+                        const verificationId =
+                          await phoneProvider.verifyPhoneNumber(
+                            phoneNumber,
+                            recaptchaVerifier.current
+                          );
+                        setVerificationId(verificationId);
 
-              //           showToast(
-              //             "Verification code has been sent to your phone."
-              //           );
-              //           setLoading(false);
-              //         } catch (err: any) {
-              //           showToast(err.message);
-              //           setLoading(false);
-              //         }
-              //       } else {
-              //         setLoading(false);
-              //         console.log("User data not found");
-              //         showToast("Use not found", "Please Create an Account");
-              //       }
-              //     })
-              //     .catch((error) => {
-              //       setLoading(false);
-              //       console.error("Error retrieving data:", error);
-              //     });
-              //   console.log(phoneNumber);
+                        showToast(
+                          "Verification code has been sent to your phone."
+                        );
+                        setLoading(false);
+                      } catch (err: any) {
+                        showToast(err.message);
+                        setLoading(false);
+                      }
+                    } else {
+                      setLoading(false);
+                      console.log("User data not found");
+                      showToast("User not found", "Please Create an Account");
+                    }
+                  })
+                  .catch((error) => {
+                    setLoading(false);
+                    console.error("Error retrieving data:", error);
+                  });
+                console.log(phoneNumber);
 
-              //   // The FirebaseRecaptchaVerifierModal ref implements the
-              //   // FirebaseAuthApplicationVerifier interface and can be
-              //   // passed directly to `verifyPhoneNumber`.
-              // }}
+                // The FirebaseRecaptchaVerifierModal ref implements the
+                // FirebaseAuthApplicationVerifier interface and can be
+                // passed directly to `verifyPhoneNumber`.
+              }}
             >
               <Text style={{ color: "white" }}>
                 {" "}
@@ -184,27 +184,27 @@ const Login = () => {
           </View>
           <TouchableOpacity
             disabled={!verificationId}
-            // onPress={async () => {
-            //   setLoading(true);
-            //   try {
-            //     const credential = PhoneAuthProvider.credential(
-            //       verificationId,
-            //       verificationCode
-            //     );
-            //     const res = await signInWithCredential(auth, credential);
-            //     console.log(res);
-            //     // updateProfile(res.user, { displayName: "amazing dev" });
-            //     let key: any = auth.currentUser;
-            //     console.log(key, res);
-            //     setLoading(false);
-            //     showToast("Phone authentication successful 👍");
-            //     await AsyncStorage.setItem("name", key.displayName);
-            //     navigation.navigate("Home");
-            //   } catch (err: any) {
-            //     showToast(err.message);
-            //     setLoading(false);
-            //   }
-            // }}
+            onPress={async () => {
+              setLoading(true);
+              try {
+                const credential = PhoneAuthProvider.credential(
+                  verificationId,
+                  verificationCode
+                );
+                const res = await signInWithCredential(auth, credential);
+                console.log(res);
+                // updateProfile(res.user, { displayName: "amazing dev" });
+                let key: any = auth.currentUser;
+                console.log(key, res);
+                setLoading(false);
+                showToast("Phone authentication successful 👍");
+                await AsyncStorage.setItem("name", key.displayName);
+                navigation.navigate("Home");
+              } catch (err: any) {
+                showToast(err.message);
+                setLoading(false);
+              }
+            }}
             style={{
               backgroundColor: "#2580af",
               marginVertical: 10,
