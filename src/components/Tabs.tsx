@@ -11,7 +11,7 @@ import OnBoardUi from "../screens/onBoardUi";
 import Login from "../screens/Login";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { initializeApp, getApp } from "firebase/app";
+//import { initializeApp, getApp } from "firebase/app";
 
 import { Platform } from "react-native";
 

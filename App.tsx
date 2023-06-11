@@ -25,9 +25,11 @@ export default function App() {
       >
         TGW Finance
       </Text>
-
-      <Navigation />
-      <Toast />
+      {/* <Navigation/> */}
+      <NavigationContainer>
+        <Tabs />
+      </NavigationContainer>
+      {/* <Toast /> */}
     </SafeAreaView>
   );
 
