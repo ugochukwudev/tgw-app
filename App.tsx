@@ -15,17 +15,6 @@ import Toast, { ToastRef } from "react-native-toast-message";
 export default function App() {
   return (
     <SafeAreaView style={{ flex: 1, paddingTop: StatusBar?.currentHeight }}>
-      <Text
-        style={{
-          padding: 10,
-          fontSize: 24,
-          color: "#2580af",
-          fontWeight: "bold",
-        }}
-      >
-        TGW Finance
-      </Text>
-
       <Navigation />
       <Toast />
     </SafeAreaView>

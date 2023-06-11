@@ -12,6 +12,7 @@ import { Feather } from "@expo/vector-icons";
 import RowText from "../components/RowText";
 import { weatherType } from "../utilities/weatherType";
 import { SelectList } from "react-native-dropdown-select-list";
+import { colors } from "../constants/colors";
 
 const CurrentWeather = ({ weatherData }: any) => {
   const [amount, setAmount] = useState<number>(0);
@@ -75,7 +76,7 @@ const CurrentWeather = ({ weatherData }: any) => {
       style={[
         wrapper,
         {
-          backgroundColor: "#2580af",
+          backgroundColor: colors.primary,
           width: "100%",
           paddingTop: 30,
         },
@@ -87,7 +88,7 @@ const CurrentWeather = ({ weatherData }: any) => {
             paddingLeft: 4,
             paddingBottom: 20,
             fontSize: 30,
-            color: "#f5be49",
+            color: colors.yellow,
           }}
         >
           Currency Converter

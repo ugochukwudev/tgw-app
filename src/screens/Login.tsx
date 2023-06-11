@@ -24,6 +24,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { get, getDatabase, ref, set } from "firebase/database";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import Toast from "react-native-toast-message";
+import { colors } from "../constants/colors";
 
 const database = getDatabase();
 
@@ -52,7 +53,7 @@ const Login = () => {
     >
       <View
         style={{
-          backgroundColor: "#2580af",
+          backgroundColor: colors.primary,
           flex: 1,
           display: "flex",
           alignItems: "center",
@@ -85,7 +86,7 @@ const Login = () => {
           >
             <TextInput
               style={{
-                width: "70%",
+                width: "65%",
                 borderColor: "#000",
                 borderWidth: 1,
                 padding: 6,
@@ -99,7 +100,11 @@ const Login = () => {
               value={phoneNumber}
             />
             <TouchableOpacity
-              style={{ backgroundColor: "black", padding: 8, borderRadius: 10 }}
+              style={{
+                backgroundColor: colors.black,
+                padding: 8,
+                borderRadius: 10,
+              }}
               disabled={!phoneNumber}
               onPress={async () => {
                 setLoading(true);
@@ -179,7 +184,7 @@ const Login = () => {
                 navigation.navigate("Register");
               }}
             >
-              <Text style={{ color: "#2580af" }}>Create Account</Text>
+              <Text style={{ color: colors.primary }}>Create Account</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -206,7 +211,7 @@ const Login = () => {
               }
             }}
             style={{
-              backgroundColor: "#2580af",
+              backgroundColor: colors.primary,
               marginVertical: 10,
               paddingVertical: 10,
               paddingHorizontal: 4,

@@ -26,6 +26,7 @@ import {
   User,
 } from "firebase/auth";
 import { app, auth } from "../firebase/firebase";
+import { colors } from "../constants/colors";
 
 // Firebase references
 
@@ -103,14 +104,14 @@ const City = () => {
             alignContent: "center",
           }}
         >
-          <Text style={{ color: "#2580af", fontSize: 20 }}>Wallet</Text>
-          <Text style={{ color: "#2580af", fontSize: 16 }}>
+          <Text style={{ color: colors.primary, fontSize: 20 }}>Wallet</Text>
+          <Text style={{ color: colors.primary, fontSize: 16 }}>
             Transaction history
           </Text>
         </View>
         <View
           style={{
-            backgroundColor: "#2580af",
+            backgroundColor: colors.primary,
             padding: 6,
             borderRadius: 10,
             marginVertical: 6,
@@ -147,8 +148,8 @@ const City = () => {
               alignItems: "center",
             }}
           >
-            <MaterialIcons name="add-box" size={30} color="#2580af" />
-            <Text style={{ color: "#2580af" }}>Add money</Text>
+            <MaterialIcons name="add-box" size={30} color={colors.primary} />
+            <Text style={{ color: colors.primary }}>Add money</Text>
           </View>
           <View
             style={{
@@ -156,8 +157,12 @@ const City = () => {
               alignItems: "center",
             }}
           >
-            <MaterialCommunityIcons name="transfer" size={30} color="#2580af" />
-            <Text style={{ color: "#2580af" }}>Transfer</Text>
+            <MaterialCommunityIcons
+              name="transfer"
+              size={30}
+              color={colors.primary}
+            />
+            <Text style={{ color: colors.primary }}>Transfer</Text>
           </View>
           <View
             style={{
@@ -168,9 +173,9 @@ const City = () => {
             <MaterialCommunityIcons
               name="shape-square-rounded-plus"
               size={30}
-              color="#2580af"
+              color={colors.primary}
             />
-            <Text style={{ color: "#2580af" }}>Withdraw</Text>
+            <Text style={{ color: colors.primary }}>Withdraw</Text>
           </View>
         </View>
         <TouchableOpacity
@@ -182,7 +187,7 @@ const City = () => {
             navigation.navigate("Login");
           }}
           style={{
-            backgroundColor: "#2580af",
+            backgroundColor: colors.primary,
 
             width: "40%",
             display: "flex",
@@ -203,7 +208,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // paddingTop: 10,
-    backgroundColor: "#2580af",
+    backgroundColor: colors.primary,
   },
   imageLayout: {
     flex: 1,

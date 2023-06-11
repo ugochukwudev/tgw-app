@@ -27,6 +27,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { app, auth } from "../firebase/firebase";
 import { get, getDatabase, ref, set } from "firebase/database";
 import Toast from "react-native-toast-message";
+import { colors } from "../constants/colors";
 // Double-check that we can run the example
 
 const Register = () => {
@@ -55,7 +56,7 @@ const Register = () => {
     >
       <View
         style={{
-          backgroundColor: "#2580af",
+          backgroundColor: colors.primary,
           flex: 1,
           display: "flex",
           alignItems: "center",
@@ -183,13 +184,13 @@ const Register = () => {
               marginVertical: 8,
             }}
           >
-            <Text style={{ color: "#2580af" }}>Clear Form ?</Text>
+            <Text style={{ color: colors.primary }}>Clear Form ?</Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Login");
               }}
             >
-              <Text style={{ color: "#2580af" }}>Sign In</Text>
+              <Text style={{ color: colors.primary }}>Sign In</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -233,7 +234,7 @@ const Register = () => {
               }
             }}
             style={{
-              backgroundColor: "#2580af",
+              backgroundColor: colors.primary,
               marginVertical: 10,
               paddingVertical: 6,
               paddingHorizontal: 4,
