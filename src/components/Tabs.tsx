@@ -33,31 +33,7 @@ const Tabs = () => {
     }
   });
   const navigation: any = useNavigation();
-  const retrieveData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("isnew");
-      console.log(value);
 
-      if (value == "false") {
-        console.log("Retrieved data:", value);
-
-        // Clean up the auth state listener
-      } else {
-        try {
-          await AsyncStorage.setItem("isnew", "false");
-          console.log("Data stored successfully!");
-          navigation.navigate("OnBoard");
-        } catch (error) {
-          console.log("Error storing data:", error);
-        }
-      }
-    } catch (error) {
-      console.log("Error retrieving data:", error);
-    }
-  };
-  useEffect(() => {
-    retrieveData();
-  }, []);
   useEffect(() => {
     unsubscribe();
   }, []);

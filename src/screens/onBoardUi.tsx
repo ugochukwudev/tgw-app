@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState, useEffect } from "react";
 import { ScrollView, Text, View, StyleSheet, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 
