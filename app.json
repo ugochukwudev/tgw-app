@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#2580af"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -31,14 +33,7 @@
       }
     },
     "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ]
+      "expo-build-properties"
     ]
   }
 }
