@@ -25,16 +25,12 @@ import {
   updateProfile,
   User,
 } from "firebase/auth";
-import { app, auth } from "../firebase/firebase";
+//import { app, auth } from "../firebase/firebase";
 
 // Firebase references
 
 // Double-check that we can run the example
-if (!app?.options || Platform.OS === "web") {
-  throw new Error(
-    "This example only works on Android or iOS, and requires a valid Firebase config."
-  );
-}
+
 const City = () => {
   const navigation: any = useNavigation();
   const [name, setName] = useState<string | null>();
@@ -57,24 +53,24 @@ const City = () => {
       text2: "",
     });
   };
-  const unsubscribe = auth.onAuthStateChanged((user) => {
-    if (user) {
-      // User is authenticated, fetch their data
-      setName(user.displayName);
-    } else {
-      navigation.navigate("Login");
-      // User is not authenticated, handle accordingly
-      // e.g., redirect to login screen
-    }
-  });
+  // const unsubscribe = auth.onAuthStateChanged((user) => {
+  //   if (user) {
+  //     // User is authenticated, fetch their data
+  //     setName(user.displayName);
+  //   } else {
+  //     navigation.navigate("Login");
+  //     // User is not authenticated, handle accordingly
+  //     // e.g., redirect to login screen
+  //   }
+  // });
   useEffect(() => {
     // Clean up the auth state listener
-    unsubscribe();
+    //unsubscribe();
   }, []);
 
   const handleLogout = async () => {
     try {
-      await auth.signOut();
+      //await auth.signOut();
       // User is logged out successfully
     } catch (error) {
       // Handle error logging out
@@ -181,7 +177,7 @@ const City = () => {
           onPress={() => {
             setName(null);
             showToast();
-            handleLogout();
+            //handleLogout();
 
             navigation.navigate("Login");
           }}
