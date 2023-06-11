@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -25,11 +26,9 @@ export default function App() {
       >
         TGW Finance
       </Text>
-      {/* <Navigation/> */}
-      <NavigationContainer>
-        <Tabs />
-      </NavigationContainer>
-      {/* <Toast /> */}
+
+      <Navigation />
+      <Toast />
     </SafeAreaView>
   );
 
