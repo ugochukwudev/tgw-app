@@ -12,11 +12,13 @@ import Login from "../screens/Login";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { initializeApp, getApp } from "firebase/app";
-
+import { MaterialIcons } from "@expo/vector-icons";
 import { Platform } from "react-native";
-
+import { Entypo } from "@expo/vector-icons";
 import { app, auth } from "../firebase/firebase";
 import { colors } from "../constants/colors";
+import Dashboard from "../screens/Dashboard";
+import Wallet from "../screens/Wallet";
 
 // Double-check that we can run the example
 
@@ -26,7 +28,6 @@ const Tabs = () => {
   const unsubscribe = auth.onAuthStateChanged((user) => {
     if (user) {
       // User is authenticated, fetch their data
-      console.log("hurray");
     } else {
       navigation.navigate("Login");
       // User is not authenticated, handle accordingly
@@ -41,7 +42,7 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: colors.yellow,
+        tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: "gray",
         headerShown: false,
         tabBarStyle: {
@@ -58,13 +59,41 @@ const Tabs = () => {
       }}
     >
       <Tab.Screen
+        name={"DashBoard"}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <MaterialIcons
+              name="dashboard-customize"
+              size={25}
+              color={focused ? colors.primary : "black"}
+            />
+          ),
+        }}
+      >
+        {() => <Dashboard />}
+      </Tab.Screen>
+      <Tab.Screen
+        name={"Wallet"}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Entypo
+              name="wallet"
+              size={25}
+              color={focused ? colors.primary : "black"}
+            />
+          ),
+        }}
+      >
+        {() => <Wallet />}
+      </Tab.Screen>
+      <Tab.Screen
         name={"Profile"}
         options={{
           tabBarIcon: ({ focused }) => (
             <MaterialCommunityIcons
               name={"face-man-profile"}
               size={25}
-              color={focused ? colors.yellow : "black"}
+              color={focused ? colors.primary : "black"}
             />
           ),
         }}
@@ -72,13 +101,13 @@ const Tabs = () => {
         {() => <City />}
       </Tab.Screen>
       <Tab.Screen
-        name={"Calculates"}
+        name={"Calculator"}
         options={{
           tabBarIcon: ({ focused }) => (
             <AntDesign
               name={"calculator"}
               size={25}
-              color={focused ? colors.yellow : "black"}
+              color={focused ? colors.primary : "black"}
             />
           ),
         }}

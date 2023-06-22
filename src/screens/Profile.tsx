@@ -8,9 +8,10 @@ import {
   View,
   TouchableOpacity,
   Platform,
+  Image,
+  ScrollView,
 } from "react-native";
 import moment from "moment";
-import IconText from "../components/IconText";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -27,6 +28,8 @@ import {
 } from "firebase/auth";
 import { app, auth } from "../firebase/firebase";
 import { colors } from "../constants/colors";
+import ProfileDetails from "../components/ProfileDetails";
+import Header from "../components/Header";
 
 // Firebase references
 
@@ -34,19 +37,9 @@ import { colors } from "../constants/colors";
 
 const City = () => {
   const navigation: any = useNavigation();
-  const [name, setName] = useState<string | null>();
-  const {
-    container,
-    cityName,
-    cityText,
-    countryName,
-    imageLayout,
-    populationWrapper,
-    populationText,
-    riseSetWrapper,
-    riseSetText,
-    rowLayout,
-  } = styles;
+  const [name, setName] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const showToast = () => {
     Toast.show({
       type: "info",
@@ -77,177 +70,115 @@ const City = () => {
       // Handle error logging out
     }
   };
+  const padding = StatusBar.currentHeight && StatusBar.currentHeight + 20;
   return (
-    <SafeAreaView style={[imageLayout, container, {}]}>
-      <View style={[populationWrapper, rowLayout]}>
-        <IconText
-          iconName={"user"}
-          iconColor={"#fff"}
-          bodyText={name !== null ? `Hello ${name} !` : `...`}
-          bodyTextStyles={{ color: "white", fontSize: 20 }}
-        />
-      </View>
-      <View
-        style={{
-          width: "90%",
-          backgroundColor: "#fff",
-          borderRadius: 16,
-          marginTop: 30,
-          padding: 16,
+    <ImageBackground source={require("../../assets/dashboard-bg.jpg")}>
+      <ScrollView
+        nestedScrollEnabled={true}
+        scrollEnabled={true}
+        contentContainerStyle={{
+          paddingVertical: padding,
+          alignItems: "center",
+          justifyContent: "center",
+          flexGrow: 1,
         }}
       >
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignContent: "center",
-          }}
-        >
-          <Text style={{ color: colors.primary, fontSize: 20 }}>Wallet</Text>
-          <Text style={{ color: colors.primary, fontSize: 16 }}>
-            Transaction history
-          </Text>
+        <View style={{ width: "90%" }}>
+          <Header name="Profile" />
         </View>
         <View
           style={{
-            backgroundColor: colors.primary,
-            padding: 6,
-            borderRadius: 10,
-            marginVertical: 6,
+            backgroundColor: colors.white,
+            marginTop: 30,
+            width: "90%",
+            borderRadius: 16,
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+            alignItems: "center",
+            paddingVertical: 20,
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: "600", color: "white" }}>
-            Account Balance
+          <Image
+            source={require("../../assets/user-image.jpeg")}
+            style={{ borderRadius: 999, width: "30%", height: 100 }}
+          />
+          <Text
+            style={{ color: colors.primary, fontWeight: "600", fontSize: 20 }}
+          >
+            {name}
           </Text>
           <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "500",
-              paddingVertical: 4,
-              color: "white",
-            }}
+            style={{ color: colors.primary, fontWeight: "400", fontSize: 16 }}
           >
-            $5000
+            Techy
           </Text>
         </View>
         <View
           style={{
-            marginVertical: 10,
-            borderRadius: 16,
-            paddingHorizontal: 10,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
+            width: "90%",
+            marginTop: 50,
           }}
         >
           <View
             style={{
               display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row",
               alignItems: "center",
             }}
           >
-            <MaterialIcons name="add-box" size={30} color={colors.primary} />
-            <Text style={{ color: colors.primary }}>Add money</Text>
+            <Text
+              style={{ fontSize: 20, color: colors.white, fontWeight: "600" }}
+            >
+              Profile
+            </Text>
+            <Text style={{ color: colors.white }}>Edit Profile</Text>
           </View>
           <View
             style={{
+              marginTop: 20,
+              paddingVertical: 12,
               display: "flex",
-              alignItems: "center",
             }}
           >
-            <MaterialCommunityIcons
-              name="transfer"
-              size={30}
-              color={colors.primary}
-            />
-            <Text style={{ color: colors.primary }}>Transfer</Text>
+            <ProfileDetails subject="Public Name" content="Techy" />
+            <ProfileDetails subject="Private Name" content={name && name} />
+            <ProfileDetails subject="Country" content="Nigeria" />
+            <ProfileDetails subject="State" content="Lagos" />
+            <ProfileDetails subject="Phone Number" content="08024299898" />
+            <ProfileDetails subject="Currencies" content="NGN, USD,TGw" />
           </View>
-          <View
-            style={{
-              display: "flex",
-              alignItems: "center",
+          <TouchableOpacity
+            onPress={() => {
+              setLoading(true);
+              showToast();
+              handleLogout();
+              setLoading(false);
             }}
           >
-            <MaterialCommunityIcons
-              name="shape-square-rounded-plus"
-              size={30}
-              color={colors.primary}
-            />
-            <Text style={{ color: colors.primary }}>Withdraw</Text>
-          </View>
+            <Text
+              style={{
+                backgroundColor: colors.black,
+                width: "40%",
+                padding: 10,
+                paddingVertical: 15,
+                alignSelf: "flex-end",
+                color: colors.white,
+                alignItems: "center",
+                textAlign: "center",
+                borderRadius: 16,
+                fontWeight: "700",
+                fontSize: 16,
+              }}
+            >
+              {loading ? "Loading..." : "Logout"}
+            </Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            setName(null);
-            showToast();
-            handleLogout();
-
-            navigation.navigate("Login");
-          }}
-          style={{
-            backgroundColor: colors.primary,
-
-            width: "40%",
-            display: "flex",
-            alignItems: "center",
-            alignSelf: "flex-end",
-            paddingVertical: 10,
-            borderRadius: 10,
-          }}
-        >
-          <Text style={{ color: "white", fontSize: 16 }}>Logout</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      </ScrollView>
+    </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // paddingTop: 10,
-    backgroundColor: colors.primary,
-  },
-  imageLayout: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cityName: {
-    fontSize: 40,
-  },
-  countryName: {
-    fontSize: 30,
-  },
-  cityText: {
-    justifyContent: "center",
-    alignSelf: "center",
-    color: "white",
-    fontWeight: "bold",
-  },
-  populationWrapper: {
-    justifyContent: "center",
-    marginTop: 30,
-  },
-  populationText: {
-    fontSize: 25,
-    marginLeft: 7.5,
-    color: "red",
-  },
-  riseSetWrapper: {
-    justifyContent: "space-around",
-    marginTop: 30,
-  },
-  rowLayout: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  riseSetText: {
-    fontSize: 20,
-    color: "white",
-  },
-});
 
 export default City;

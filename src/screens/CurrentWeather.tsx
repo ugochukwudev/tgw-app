@@ -43,11 +43,11 @@ const CurrentWeather = ({ weatherData }: any) => {
 
       const datares = await fetch("https://api.exchangerate.host/latest");
       const result: any = await datares.json();
-      console.log(result);
+
       let array = Object.getOwnPropertyNames(result?.rates).map((e, i) => {
         return { key: i, value: e };
       });
-      console.log(array, "oo");
+
       setMapData(array);
       setData(result);
     } catch (err) {

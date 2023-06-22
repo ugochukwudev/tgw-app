@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Tabs from "./Tabs";
+import Tabs from "../Nav/Tabs";
 import Login from "../screens/Login";
 import OnBoardUi from "../screens/onBoardUi";
 import Register from "../screens/Register";
