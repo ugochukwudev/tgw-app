@@ -7,12 +7,14 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import RowText from "../components/RowText";
 import { weatherType } from "../utilities/weatherType";
 import { SelectList } from "react-native-dropdown-select-list";
 import { colors } from "../constants/colors";
+import Header from "../components/Header";
 
 const CurrentWeather = ({ weatherData }: any) => {
   const [amount, setAmount] = useState<number>(0);
@@ -71,106 +73,103 @@ const CurrentWeather = ({ weatherData }: any) => {
     fetchConverts();
   }, []);
   return (
-    <ScrollView
-      scrollEnabled={true}
-      style={[
-        wrapper,
-        {
-          backgroundColor: colors.primary,
-          width: "100%",
-          paddingTop: 30,
-        },
-      ]}
+    <ImageBackground
+      style={{
+        flex: 1,
+      }}
+      source={require("../../assets/wallet-bg.jpg")}
     >
-      <View style={container}>
-        <Text
-          style={{
-            paddingTop: 40,
-            paddingLeft: 4,
-            paddingBottom: 20,
-            fontSize: 30,
-            color: colors.yellow,
-          }}
-        >
-          Currency Converter
-        </Text>
-        <Text style={styles.label}>Amount:</Text>
-        <TextInput
-          style={styles.input}
-          keyboardType="number-pad"
-          placeholder="amount to convert"
-          onChangeText={(text: any) => {
-            setAmount(text);
-          }}
-        />
-        <Text style={styles.label}>From</Text>
-
-        <SelectList
-          boxStyles={{
-            backgroundColor: "white",
-            borderColor: "white",
-            marginVertical: 20,
-            width: from ? "62%" : "83%",
-          }}
-          dropdownStyles={{
-            backgroundColor: "white",
-            borderColor: "black",
-          }}
-          search={true}
-          setSelected={(val: any) => {
-            console.log(data?.rates[val], "kk");
-            setFrom(val);
-          }}
-          data={data ? mapData || [] : []}
-          save="value"
-          placeholder="Currency you want to convert"
-        />
-        <Text style={styles.label}>To</Text>
-        <SelectList
-          boxStyles={{
-            backgroundColor: "white",
-            borderColor: "white",
-            marginVertical: 20,
-            width: to ? "62%" : "77%",
-          }}
-          dropdownStyles={{
-            backgroundColor: "white",
-            borderColor: "black",
-          }}
-          setSelected={(val: any) => {
-            console.log(val, "km");
-            setTo(val);
-          }}
-          search={true}
-          data={data ? mapData || [] : []}
-          save={"value"}
-          placeholder="Currency to convert to"
-        />
-        <Text style={styles.label}>Result :</Text>
-        <View
-          style={{
-            flexDirection: "row",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingLeft: 25,
-            marginTop: 20,
-            width: "100%",
-            backgroundColor: "white",
-            paddingVertical: 10,
-            borderRadius: 10,
-          }}
-        >
-          <Text style={feels}>
-            {total === "..." ? (
-              <ActivityIndicator size={24} color={"#f5be49"} />
-            ) : (
-              total
-            )}
-          </Text>
+      <ScrollView
+        nestedScrollEnabled={true}
+        scrollEnabled={true}
+        contentContainerStyle={{
+          alignItems: "center",
+          justifyContent: "center",
+          flexGrow: 1,
+        }}
+      >
+        <View style={{ marginTop: 60, width: "90%" }}>
+          <Header name="Calculator" />
         </View>
-      </View>
-    </ScrollView>
+        <View style={container}>
+          <Text style={styles.label}>Amount:</Text>
+          <TextInput
+            style={styles.input}
+            keyboardType="number-pad"
+            placeholder="amount to convert"
+            onChangeText={(text: any) => {
+              setAmount(text);
+            }}
+          />
+          <Text style={styles.label}>From</Text>
+
+          <SelectList
+            boxStyles={{
+              backgroundColor: "white",
+              borderColor: "white",
+              marginVertical: 20,
+              width: from ? "62%" : "83%",
+            }}
+            dropdownStyles={{
+              backgroundColor: "white",
+              borderColor: "black",
+            }}
+            search={true}
+            setSelected={(val: any) => {
+              console.log(data?.rates[val], "kk");
+              setFrom(val);
+            }}
+            data={data ? mapData || [] : []}
+            save="value"
+            placeholder="Currency you want to convert"
+          />
+          <Text style={styles.label}>To</Text>
+          <SelectList
+            boxStyles={{
+              backgroundColor: "white",
+              borderColor: "white",
+              marginVertical: 20,
+              width: to ? "62%" : "77%",
+            }}
+            dropdownStyles={{
+              backgroundColor: "white",
+              borderColor: "black",
+            }}
+            setSelected={(val: any) => {
+              console.log(val, "km");
+              setTo(val);
+            }}
+            search={true}
+            data={data ? mapData || [] : []}
+            save={"value"}
+            placeholder="Currency to convert to"
+          />
+          <Text style={styles.label}>Result :</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingLeft: 25,
+              marginTop: 20,
+              width: "100%",
+              backgroundColor: "white",
+              paddingVertical: 10,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={feels}>
+              {total === "..." ? (
+                <ActivityIndicator size={24} color={"#f5be49"} />
+              ) : (
+                total
+              )}
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 

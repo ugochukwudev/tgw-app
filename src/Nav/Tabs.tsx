@@ -19,7 +19,8 @@ import { app, auth } from "../firebase/firebase";
 import { colors } from "../constants/colors";
 import Dashboard from "../screens/Dashboard";
 import Wallet from "../screens/Wallet";
-
+import { FontAwesome5 } from "@expo/vector-icons";
+import Friends from "../screens/Friends";
 // Double-check that we can run the example
 
 const Tab = createBottomTabNavigator();
@@ -99,6 +100,20 @@ const Tabs = () => {
         }}
       >
         {() => <City />}
+      </Tab.Screen>
+      <Tab.Screen
+        name={"Friends"}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome5
+              name="user-friends"
+              size={25}
+              color={focused ? colors.primary : "black"}
+            />
+          ),
+        }}
+      >
+        {() => <Friends />}
       </Tab.Screen>
       <Tab.Screen
         name={"Calculator"}
