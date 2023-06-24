@@ -9,6 +9,7 @@ import DashboardSavedpost from "../components/DashboardSavedpost";
 import Header from "../components/Header";
 import { auth } from "../firebase/firebase";
 import { useNavigation } from "@react-navigation/native";
+import DoubleHeaders from "../components/DoubleHeaders";
 
 const Dashboard = () => {
   const navigation: any = useNavigation();
@@ -133,16 +134,8 @@ const Dashboard = () => {
           <PendingTransactions />
           <PendingTransactions />
         </View>
-        <Text
-          style={{
-            marginVertical: 10,
-            fontWeight: "700",
-            color: colors.white,
-            fontSize: 20,
-          }}
-        >
-          Groups
-        </Text>
+        <DoubleHeaders name="Groups" more="More..." />
+
         <View
           style={{
             backgroundColor: "#3E7270",

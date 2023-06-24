@@ -26,8 +26,13 @@ import Friends from "../screens/Friends";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
-  const unsubscribe = auth.onAuthStateChanged((user) => {
+  const unsubscribe = auth.onAuthStateChanged(async (user) => {
     if (user) {
+      const currentTime = Date.now() / 1000;
+      let userData = await user.getIdTokenResult();
+      let expirationTime = await userData.expirationTime;
+      console.log(currentTime, new Date(expirationTime).getTime());
+
       // User is authenticated, fetch their data
     } else {
       navigation.navigate("Login");
