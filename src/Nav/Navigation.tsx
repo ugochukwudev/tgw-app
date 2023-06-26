@@ -10,6 +10,7 @@ import VerifyUser from "../screens/verifyUser";
 import ForgotPassword from "../screens/forgotPassword";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import Chat from "../screens/Chat";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -54,6 +55,7 @@ const Container = () => {
 
       <Stack.Screen name="Home" component={Tabs} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Chat" component={Chat} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Verify" component={VerifyUser} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

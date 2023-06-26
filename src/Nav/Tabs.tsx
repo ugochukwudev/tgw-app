@@ -21,6 +21,7 @@ import Dashboard from "../screens/Dashboard";
 import Wallet from "../screens/Wallet";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Friends from "../screens/Friends";
+import Chat from "../screens/Chat";
 // Double-check that we can run the example
 
 const Tab = createBottomTabNavigator();
@@ -134,6 +135,9 @@ const Tabs = () => {
       >
         {() => <CurrentWeather />}
       </Tab.Screen>
+      {/* <Tab.Screen name={"Chat"} options={{ tabBarButton: () => null }}>
+        {() => <Chat />}
+      </Tab.Screen> */}
     </Tab.Navigator>
   );
 };

@@ -16,7 +16,7 @@ const Friends = () => {
   const activeMap = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   return (
     <LinearGradient
-      colors={[colors.test, "#3e7270"]}
+      colors={[colors.test, colors.darkPrimary]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={{ flex: 1 }}
