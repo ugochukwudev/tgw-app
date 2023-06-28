@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import { colors } from "../constants/colors";
 import { LinearGradient } from "expo-linear-gradient";
@@ -20,7 +21,8 @@ import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 const Chat = ({ route }: any) => {
   const activeMap = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const height = Dimensions.get("window").height - 121;
+  const top: any = StatusBar.currentHeight;
+  const height = Dimensions.get("window").height - 400;
   const { type } = route.params;
   const navigation: any = useNavigation();
   return (
@@ -33,6 +35,7 @@ const Chat = ({ route }: any) => {
       <ScrollView
         contentContainerStyle={{
           backgroundColor: colors.green,
+          flex: 1,
         }}
       >
         <View
@@ -41,6 +44,7 @@ const Chat = ({ route }: any) => {
             paddingHorizontal: 16,
             position: "relative",
             display: "flex",
+            height: 50,
             flexDirection: "row",
             alignItems: "center",
           }}

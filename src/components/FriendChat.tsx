@@ -7,7 +7,9 @@ const FriendChat = () => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("Chat");
+        navigation.navigate("Chat", {
+          type: "chat",
+        });
       }}
     >
       <View
