@@ -134,7 +134,13 @@ const Dashboard = () => {
           <PendingTransactions />
           <PendingTransactions />
         </View>
-        <DoubleHeaders name="Groups" more="More..." />
+        <DoubleHeaders
+          name="Groups"
+          more="More..."
+          run={() => {
+            navigation.navigate("Groups");
+          }}
+        />
 
         <View
           style={{

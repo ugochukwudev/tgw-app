@@ -84,7 +84,7 @@ const Friends = () => {
               return <ActiveUser />;
             })}
           </ScrollView>
-          <View style={{ marginTop: 30 }}>
+          <View style={{ marginVertical: 50 }}>
             {activeMap.map(() => {
               return <FriendChat />;
             })}

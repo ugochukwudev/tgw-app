@@ -16,7 +16,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { colors } from "../constants/colors";
 import Header from "../components/Header";
 
-const CurrentWeather = ({ weatherData }: any) => {
+const Calculator = ({ weatherData }: any) => {
   const [amount, setAmount] = useState<number>(0);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -228,4 +228,4 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
 });
-export default CurrentWeather;
+export default Calculator;

@@ -24,7 +24,7 @@ const Header = ({ name }: Props) => {
       </Text>
       <Image
         source={require("../../assets/user-image.jpeg")}
-        style={{ width: "9%", height: 32, borderRadius: 999 }}
+        style={{ width: 32, height: 32, borderRadius: 999 }}
       />
     </View>
   );

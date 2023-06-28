@@ -6,11 +6,15 @@ import Tabs from "../Nav/Tabs";
 import Login from "../screens/Login";
 import OnBoardUi from "../screens/onBoardUi";
 import Register from "../screens/Register";
-import VerifyUser from "../screens/verifyUser";
-import ForgotPassword from "../screens/forgotPassword";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import Chat from "../screens/Chat";
+import PreviewPic from "../screens/PreviewPic";
+import Groups from "../screens/Groups";
+import JoinGroup from "../screens/JoinGroup";
+import PendingRequests from "../screens/PendingRequests";
+import CreateGroups from "../screens/CreateGroups";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -48,6 +52,7 @@ const Container = () => {
   return (
     <Stack.Navigator
       screenOptions={{
+        animation: "fade",
         headerShown: false,
       }}
     >
@@ -55,10 +60,37 @@ const Container = () => {
 
       <Stack.Screen name="Home" component={Tabs} />
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen
+        options={{ animation: "fade_from_bottom" }}
+        name="Chat"
+        component={Chat}
+      />
+      <Stack.Screen
+        options={{ animation: "slide_from_bottom" }}
+        name="PreviewPic"
+        component={PreviewPic}
+      />
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="Verify" component={VerifyUser} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen
+        options={{ animation: "flip" }}
+        name="Groups"
+        component={Groups}
+      />
+      <Stack.Screen
+        options={{ animation: "slide_from_right" }}
+        name="JoinGroup"
+        component={JoinGroup}
+      />
+      <Stack.Screen
+        options={{ animation: "slide_from_right" }}
+        name="PendingRequests"
+        component={PendingRequests}
+      />
+      <Stack.Screen
+        options={{ animation: "slide_from_right" }}
+        name="CreateGroup"
+        component={CreateGroups}
+      />
     </Stack.Navigator>
   );
 };

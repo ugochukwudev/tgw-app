@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { colors } from "../constants/colors";
+import { useNavigation } from "@react-navigation/native";
+
 type Props = {
   name: string;
   more: string;
+  run?: () => void;
 };
-const DoubleHeaders = ({ name, more }: Props) => {
+const DoubleHeaders = ({ name, more, run }: Props) => {
+  const navigation: any = useNavigation();
   return (
     <View
       style={{
@@ -25,7 +29,11 @@ const DoubleHeaders = ({ name, more }: Props) => {
       >
         {name}
       </Text>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          run && run();
+        }}
+      >
         <Text
           style={{
             marginVertical: 10,

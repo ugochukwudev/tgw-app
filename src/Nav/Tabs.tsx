@@ -1,27 +1,23 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CurrentWeather from "../screens/CurrentWeather";
-import UpcomingWeather from "../screens/UpcomingWeather";
-import City from "../screens/Profile";
-import { Feather } from "@expo/vector-icons";
+
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import OnBoardUi from "../screens/onBoardUi";
-import Login from "../screens/Login";
+
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { initializeApp, getApp } from "firebase/app";
+
 import { MaterialIcons } from "@expo/vector-icons";
-import { Platform } from "react-native";
+
 import { Entypo } from "@expo/vector-icons";
-import { app, auth } from "../firebase/firebase";
+import { auth } from "../firebase/firebase";
 import { colors } from "../constants/colors";
 import Dashboard from "../screens/Dashboard";
 import Wallet from "../screens/Wallet";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Friends from "../screens/Friends";
-import Chat from "../screens/Chat";
+import Calculator from "../screens/Calculator";
+import Profile from "../screens/Profile";
 // Double-check that we can run the example
 
 const Tab = createBottomTabNavigator();
@@ -55,7 +51,6 @@ const Tabs = () => {
         tabBarStyle: {
           backgroundColor: "#fff",
         },
-
         headerStyle: {
           backgroundColor: "#fff",
         },
@@ -105,7 +100,7 @@ const Tabs = () => {
           ),
         }}
       >
-        {() => <City />}
+        {() => <Profile />}
       </Tab.Screen>
       <Tab.Screen
         name={"Friends"}
@@ -133,7 +128,7 @@ const Tabs = () => {
           ),
         }}
       >
-        {() => <CurrentWeather />}
+        {() => <Calculator />}
       </Tab.Screen>
       {/* <Tab.Screen name={"Chat"} options={{ tabBarButton: () => null }}>
         {() => <Chat />}

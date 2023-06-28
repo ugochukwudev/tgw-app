@@ -35,10 +35,11 @@ import Header from "../components/Header";
 
 // Double-check that we can run the example
 
-const City = () => {
+const Profile = () => {
   const navigation: any = useNavigation();
   const [name, setName] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [privateProfile, setPrivateProfile] = useState<boolean>(false);
 
   const showToast = () => {
     Toast.show({
@@ -99,10 +100,21 @@ const City = () => {
             paddingVertical: 20,
           }}
         >
-          <Image
-            source={require("../../assets/user-image.jpeg")}
-            style={{ borderRadius: 999, width: "30%", height: 100 }}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("PreviewPic");
+            }}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../assets/user-image.jpeg")}
+              style={{ borderRadius: 999, width: "30%", height: 100 }}
+            />
+          </TouchableOpacity>
           <Text
             style={{ color: colors.primary, fontWeight: "600", fontSize: 20 }}
           >
@@ -113,6 +125,72 @@ const City = () => {
           >
             Techy
           </Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: colors.white,
+            height: 50,
+            width: "90%",
+            marginTop: 20,
+            display: "flex",
+            alignContent: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            borderRadius: 999,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              setPrivateProfile((prev) => !prev);
+            }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 999,
+              backgroundColor: privateProfile
+                ? colors.white
+                : colors.darkPrimary,
+              width: "40%",
+            }}
+          >
+            <Text
+              style={{
+                color: !privateProfile ? colors.white : colors.primary,
+                fontSize: 16,
+                fontWeight: "500",
+              }}
+            >
+              Public
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setPrivateProfile((prev) => !prev);
+            }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 999,
+              backgroundColor: privateProfile
+                ? colors.darkPrimary
+                : colors.white,
+              width: "40%",
+            }}
+          >
+            <Text
+              style={{
+                color: privateProfile ? colors.white : colors.primary,
+                fontSize: 16,
+                fontWeight: "500",
+              }}
+            >
+              Private
+            </Text>
+          </TouchableOpacity>
         </View>
         <View
           style={{
@@ -142,12 +220,20 @@ const City = () => {
               display: "flex",
             }}
           >
-            <ProfileDetails subject="Public Name" content="Techy" />
-            <ProfileDetails subject="Private Name" content={name && name} />
-            <ProfileDetails subject="Country" content="Nigeria" />
-            <ProfileDetails subject="State" content="Lagos" />
-            <ProfileDetails subject="Phone Number" content="08024299898" />
-            <ProfileDetails subject="Currencies" content="NGN, USD,TGw" />
+            {privateProfile ? (
+              <>
+                <ProfileDetails subject="Name" content={name && name} />
+
+                <ProfileDetails subject="Phone Number" content="08024299898" />
+              </>
+            ) : (
+              <>
+                <ProfileDetails subject="Name" content="Techy" />
+                <ProfileDetails subject="Country" content="Nigeria" />
+                <ProfileDetails subject="State" content="Lagos" />
+                <ProfileDetails subject="Currencies" content="NGN, USD,TGw" />
+              </>
+            )}
           </View>
           <TouchableOpacity
             onPress={() => {
@@ -181,4 +267,4 @@ const City = () => {
   );
 };
 
-export default City;
+export default Profile;
