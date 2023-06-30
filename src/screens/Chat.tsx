@@ -22,7 +22,11 @@ import { useNavigation } from "@react-navigation/native";
 const Chat = ({ route }: any) => {
   const activeMap = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const top: any = StatusBar.currentHeight;
-  const height = Dimensions.get("window").height - 90;
+  const height =
+    Dimensions.get("window").height -
+    (Dimensions.get("window").height / 100) * 16.5;
+  console.log(height);
+
   const { type } = route.params;
   const navigation: any = useNavigation();
   return (
