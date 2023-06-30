@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Keyboard,
   StatusBar,
 } from "react-native";
 import { colors } from "../constants/colors";
@@ -22,22 +23,34 @@ import { useNavigation } from "@react-navigation/native";
 const Chat = ({ route }: any) => {
   const activeMap = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const top: any = StatusBar.currentHeight;
-  const height =
-    Dimensions.get("window").height -
-    (Dimensions.get("window").height / 100) * 16.5;
-  console.log(height);
-
+  const height = Dimensions.get("window").height;
+  console.log((height / 100) * 10);
+  const [moveChatBox, setMoveChatBox] = useState(false);
   const { type } = route.params;
   const navigation: any = useNavigation();
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      (event) => {
+        const { height } = event.endCoordinates;
+        setKeyboardHeight(height);
+      }
+    );
+  });
+
   return (
     <View
       style={{
         flex: 1,
+        backgroundColor: "orange",
       }}
     >
       <ScrollView
         contentContainerStyle={{
           backgroundColor: colors.green,
+          height: "100%",
         }}
       >
         <View
@@ -45,7 +58,7 @@ const Chat = ({ route }: any) => {
             paddingHorizontal: 16,
             position: "relative",
             display: "flex",
-            height: 50,
+            height: moveChatBox ? "20%" : "10%",
             flexDirection: "row",
             alignItems: "center",
           }}
@@ -94,8 +107,13 @@ const Chat = ({ route }: any) => {
             </TouchableOpacity>
           )}
         </View>
-        <HorizontalLine />
-        <View style={{ height: height, backgroundColor: "#d8efee" }}>
+
+        <View
+          style={{
+            height: moveChatBox ? "66%" : "82%",
+            backgroundColor: "#d8efee",
+          }}
+        >
           <ScrollView style={{ display: "flex" }}>
             {activeMap.map(() => {
               return (
@@ -108,13 +126,11 @@ const Chat = ({ route }: any) => {
             })}
           </ScrollView>
         </View>
-        <View style={{ height: 50 }}>
-          <View
-            style={{
-              borderBottomColor: "white",
-              borderBottomWidth: 1,
-            }}
-          />
+        <View
+          style={{
+            height: moveChatBox ? "14%" : "8%",
+          }}
+        >
           <View
             style={{
               width: "100%",
@@ -143,24 +159,30 @@ const Chat = ({ route }: any) => {
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  width: "80%",
+                  width: "90%",
                   marginLeft: 10,
                   marginRight: 10,
                 }}
-                behavior={Platform.OS === "ios" ? "padding" : undefined}
-                keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
               >
                 <TextInput
                   style={{
                     width: "100%",
-                    height: 50,
+                    height: "90%",
+                    paddingTop: 4,
+                  }}
+                  onFocus={() => {
+                    console.log("opened");
+                    setMoveChatBox(true);
+                  }}
+                  onBlur={() => {
+                    console.log("closed");
+                    setMoveChatBox(false);
                   }}
                   keyboardType="web-search"
                   multiline={true}
                   placeholder="type..."
                 />
               </KeyboardAvoidingView>
-              <Entypo name="emoji-happy" size={24} color={colors.primary} />
             </View>
             <AntDesign name="like1" size={24} color="white" />
           </View>

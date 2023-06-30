@@ -4,9 +4,10 @@ import {
   View,
   StyleSheet,
   Text,
-  SafeAreaView,
   StatusBar,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "./src/Nav/Tabs";
 import ErrorItem from "./src/components/ErrorItem";

@@ -34,15 +34,18 @@ const PendingRequests = () => {
                 width: "90%",
                 display: "flex",
                 alignSelf: "center",
+                alignItems: "center",
                 borderRadius: 16,
                 flexDirection: "row",
+                marginBottom: 20,
               }}
             >
               <Image
                 style={{
                   width: "40%",
-                  height: "100%",
+                  height: "90%",
                   borderRadius: 16,
+                  marginLeft: 6,
                 }}
                 source={require("../../assets/user-image.jpeg")}
               />

@@ -73,7 +73,7 @@ const Profile = () => {
   };
   const padding = StatusBar.currentHeight && StatusBar.currentHeight + 20;
   return (
-    <ImageBackground source={require("../../assets/dashboard-bg.jpg")}>
+    <ImageBackground source={require("../../assets/dashboard-bg.png")}>
       <ScrollView
         nestedScrollEnabled={true}
         scrollEnabled={true}

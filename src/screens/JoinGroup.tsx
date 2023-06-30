@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { View, TouchableOpacity, Image, Text } from "react-native";
+import { View, TouchableOpacity, Image, Text, ScrollView } from "react-native";
 import { colors } from "../constants/colors";
 import Header from "../components/Header";
 import Toast from "react-native-toast-message";
@@ -20,7 +20,8 @@ const JoinGroup = () => {
       end={{ x: 1, y: 0 }}
       style={{ flex: 1, backgroundColor: colors.darkPrimary }}
     >
-      <View
+      <ScrollView
+        showsVerticalScrollIndicator={false}
         style={{
           marginTop: 70,
           width: "90%",
@@ -82,6 +83,7 @@ const JoinGroup = () => {
             paddingVertical: 10,
             alignItems: "center",
             borderRadius: 999,
+            marginBottom: 10,
           }}
         >
           <Text
@@ -90,7 +92,7 @@ const JoinGroup = () => {
             Join!
           </Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </LinearGradient>
   );
 };

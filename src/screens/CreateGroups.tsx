@@ -69,7 +69,6 @@ const CreateGroups = () => {
           />
           <View
             style={{
-              elevation: 1,
               display: "flex",
               flexDirection: "row",
               alignItems: "center",

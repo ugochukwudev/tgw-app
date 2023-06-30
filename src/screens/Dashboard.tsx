@@ -30,7 +30,7 @@ const Dashboard = () => {
     unsubscribe();
   }, []);
   return (
-    <ImageBackground source={require("../../assets/dashboard-bg.jpg")}>
+    <ImageBackground source={require("../../assets/dashboard-bg.png")}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,

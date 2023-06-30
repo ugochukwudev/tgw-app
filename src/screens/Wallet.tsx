@@ -14,7 +14,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 const Wallet = () => {
   const padding = StatusBar.currentHeight && StatusBar.currentHeight + 20;
   return (
-    <ImageBackground source={require("../../assets/wallet-bg.jpg")}>
+    <ImageBackground source={require("../../assets/wallet-bg.png")}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,

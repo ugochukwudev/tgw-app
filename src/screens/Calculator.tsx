@@ -77,7 +77,7 @@ const Calculator = ({ weatherData }: any) => {
       style={{
         flex: 1,
       }}
-      source={require("../../assets/wallet-bg.jpg")}
+      source={require("../../assets/wallet-bg.png")}
     >
       <ScrollView
         nestedScrollEnabled={true}
